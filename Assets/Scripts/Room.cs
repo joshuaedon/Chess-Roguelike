@@ -48,12 +48,12 @@ public class Room : MonoBehaviour {
     		enemies = Random.Range(3, 15);
     	for(int i = 0; i < enemies; i++) {
 			switch(Random.Range(0, 6)) {
-				case 0: addKing(1 - Stage.s.playerTeam); break;
-		        case 1: addBishop(1 - Stage.s.playerTeam); break;
-				case 2: addKnight(1 - Stage.s.playerTeam); break;
-				case 3: addPawn(1 - Stage.s.playerTeam); break;
-				case 4: addQueen(1 - Stage.s.playerTeam); break;
-				case 5: addRook(1 - Stage.s.playerTeam); break;
+				case 0: addKing(1); break;
+		        case 1: addBishop(1); break;
+				case 2: addKnight(1); break;
+				case 3: addPawn(1); break;
+				case 4: addQueen(1); break;
+				case 5: addRook(1); break;
 			}
 		}
     }
@@ -123,215 +123,6 @@ public class Room : MonoBehaviour {
 		return grid;
     }
 
-    public void generateCoridoors(int[,] grid, List<Room> rooms, int dist) {
-    	this.distFromStart = dist;
-    	generateNorthCoridoor(grid, rooms, 2);
-		generateEastCoridoor(grid, rooms, 2);
-		generateSouthCoridoor(grid, rooms, 2);
-		generateWestCoridoor(grid, rooms, 2);			
-    }
-    private void generateNorthCoridoor(int[,] grid, List<Room> rooms, int thickness) {
-    	int[] northRooms = new int[this.size.x];
-		int minDist = -1;
-		int minDistIndex = -1;
-		int minDistTickness = -1;
-		for(int i = 0; i < this.size.x; i++) {
-			for(int j = 0; true; j++) {
-				if(this.pos.y + this.size.y + j >= grid.GetLength(1) || grid[this.pos.x + i, this.pos.y + this.size.y + j] == -2 ||
-					(grid[this.pos.x + i, this.pos.y + this.size.y + j] == -1 && grid[this.pos.x + i, this.pos.y + this.size.y + j-1] == -1 && grid[this.pos.x + i, this.pos.y + this.size.y + j-2] == -1)) {
-					// Reached scene edge or another coridoor or next to a room (3 -1s in a row)
-					northRooms[i] = -1;
-					break;
-				} else if(grid[this.pos.x + i, this.pos.y + this.size.y + j] > 0) {
-					// Record reached room & if its the closest room, record the coridoor information
-					northRooms[i] = grid[this.pos.x + i, this.pos.y + this.size.y + j];
-					if(minDist == -1 || j < minDist) {
-						minDist = j;
-						minDistIndex = i;
-						minDistTickness = 1;
-					} else if(northRooms[minDistIndex] == northRooms[i] && i == minDistIndex + minDistTickness)
-						minDistTickness++;
-					break;
-				}
-			}
-		}
-		if(minDist != -1 && (rooms[northRooms[minDistIndex] - 1].distFromStart == 0 || Random.Range(0f, 1f) < 0.25f)) {
-			// Return if there is already a coridoor connecting this room to the closest room
-			foreach(Room adjacentRoom in adjacentRooms) {
-				foreach(Room secondAdjacentRoom in adjacentRoom.adjacentRooms)
-					if(secondAdjacentRoom == rooms[northRooms[minDistIndex] - 1])
-						return;
-			}
-			// Reduce coridoor to thickness
-			while(minDistTickness > thickness) {
-				if(Random.Range(0f, 1f) < 0.5f)
-					minDistIndex++;
-				minDistTickness--;
-			}
-			Room coridoor = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.parent)).GetComponent<Room>();
-			coridoor.generate(minDistTickness, minDist, this.pos.x + minDistIndex, this.pos.y + this.size.y, 0, 0, 0);
-			coridoor.adjacentRooms.Add(this);
-			coridoor.adjacentRooms.Add(rooms[northRooms[minDistIndex] - 1]);
-			this.adjacentRooms.Add(coridoor);
-			rooms[northRooms[minDistIndex] - 1].adjacentRooms.Add(coridoor);
-			// Mark coridoor with -2
-			for(int i = Mathf.Max(0, coridoor.pos.x - 1); i < Mathf.Min(coridoor.pos.x + coridoor.size.x + 1, grid.GetLength(0)); i++) {
-				for(int j = coridoor.pos.y; j < coridoor.pos.y + coridoor.size.y; j++) {
-					grid[i, j] = -2;
-				}
-			}
-			if(rooms[northRooms[minDistIndex] - 1].distFromStart == 0)
-				rooms[northRooms[minDistIndex] - 1].generateCoridoors(grid, rooms, this.distFromStart+1);
-		}
-    }
-    private void generateEastCoridoor(int[,] grid, List<Room> rooms, int thickness) {
-    	int[] eastRooms = new int[this.size.y];
-		int minDist = -1;
-		int minDistIndex = -1;
-		int minDistTickness = -1;
-		for(int i = 0; i < this.size.y; i++) {
-			for(int j = 0; true; j++) {
-				if(this.pos.x + this.size.x + j >= grid.GetLength(0) || grid[this.pos.x + this.size.x + j, this.pos.y + i] == -2 ||
-					(grid[this.pos.x + this.size.x + j, this.pos.y + i] == -1 && grid[this.pos.x + this.size.x + j-1, this.pos.y + i] == -1 && grid[this.pos.x + this.size.x + j-2, this.pos.y + i] == -1)) {
-					eastRooms[i] = -1;
-					break;
-				} else if(grid[this.pos.x + this.size.x + j, this.pos.y + i] > 0) {
-					eastRooms[i] = grid[this.pos.x + this.size.x + j, this.pos.y + i];
-					if(minDist == -1 || j < minDist) {
-						minDist = j;
-						minDistIndex = i;
-						minDistTickness = 1;
-					} else if(eastRooms[minDistIndex] == eastRooms[i] && i == minDistIndex + minDistTickness)
-						minDistTickness++;
-					break;
-				}
-			}
-		}
-		if(minDist != -1 && (rooms[eastRooms[minDistIndex] - 1].distFromStart == 0 || Random.Range(0f, 1f) < 0.25f)) {
-			foreach(Room adjacentRoom in adjacentRooms) {
-				foreach(Room secondAdjacentRoom in adjacentRoom.adjacentRooms)
-					if(secondAdjacentRoom == rooms[eastRooms[minDistIndex] - 1])
-						return;
-			}
-			while(minDistTickness > thickness) {
-				if(Random.Range(0f, 1f) < 0.5f)
-					minDistIndex++;
-				minDistTickness--;
-			}
-			Room coridoor = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.parent)).GetComponent<Room>();
-			coridoor.generate(minDist, minDistTickness, this.pos.x + this.size.x, this.pos.y + minDistIndex, 0, 0, 0);
-			coridoor.adjacentRooms.Add(this);
-			coridoor.adjacentRooms.Add(rooms[eastRooms[minDistIndex] - 1]);
-			this.adjacentRooms.Add(coridoor);
-			rooms[eastRooms[minDistIndex] - 1].adjacentRooms.Add(coridoor);
-			for(int i = coridoor.pos.x; i < coridoor.pos.x + coridoor.size.x; i++) {
-				for(int j = Mathf.Max(0, coridoor.pos.y - 1); j < Mathf.Min(coridoor.pos.y + coridoor.size.y + 1, grid.GetLength(1)); j++) {
-					grid[i, j] = -2;
-				}
-			}
-			if(rooms[eastRooms[minDistIndex] - 1].distFromStart == 0)
-				rooms[eastRooms[minDistIndex] - 1].generateCoridoors(grid, rooms, this.distFromStart+1);
-		}
-    }
-    private void generateSouthCoridoor(int[,] grid, List<Room> rooms, int thickness) {
-    	int[] southRooms = new int[this.size.x];
-		int minDist = -1;
-		int minDistIndex = -1;
-		int minDistTickness = -1;
-		for(int i = 0; i < this.size.x; i++) {
-			for(int j = 0; true; j++) {
-				if(this.pos.y - j-1 < 0 || grid[this.pos.x + i, this.pos.y - j-1] == -2 ||
-					(grid[this.pos.x + i, this.pos.y - j-1] == -1 && grid[this.pos.x + i, this.pos.y - j] == -1 && grid[this.pos.x + i, this.pos.y - j+1] == -1)) {
-					southRooms[i] = -1;
-					break;
-				} else if(grid[this.pos.x + i, this.pos.y - j-1] > 0) {
-					southRooms[i] = grid[this.pos.x + i, this.pos.y - j-1];
-					if(minDist == -1 || j < minDist) {
-						minDist = j;
-						minDistIndex = i;
-						minDistTickness = 1;
-					} else if(southRooms[minDistIndex] == southRooms[i] && i == minDistIndex + minDistTickness)
-						minDistTickness++;
-					break;
-				}
-			}
-		}
-		if(minDist != -1 && (rooms[southRooms[minDistIndex] - 1].distFromStart == 0 || Random.Range(0f, 1f) < 0.25f)) {
-			foreach(Room adjacentRoom in adjacentRooms) {
-				foreach(Room secondAdjacentRoom in adjacentRoom.adjacentRooms)
-					if(secondAdjacentRoom == rooms[southRooms[minDistIndex] - 1])
-						return;
-			}
-			while(minDistTickness > thickness) {
-				if(Random.Range(0f, 1f) < 0.5f)
-					minDistIndex++;
-				minDistTickness--;
-			}
-			Room coridoor = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.parent)).GetComponent<Room>();
-			coridoor.generate(minDistTickness, minDist, this.pos.x + minDistIndex, this.pos.y - minDist, 0, 0, 0);
-			coridoor.adjacentRooms.Add(this);
-			coridoor.adjacentRooms.Add(rooms[southRooms[minDistIndex] - 1]);
-			this.adjacentRooms.Add(coridoor);
-			rooms[southRooms[minDistIndex] - 1].adjacentRooms.Add(coridoor);
-			for(int i = Mathf.Max(0, coridoor.pos.x - 1); i < Mathf.Min(coridoor.pos.x + coridoor.size.x + 1, grid.GetLength(0)); i++) {
-				for(int j = coridoor.pos.y; j < coridoor.pos.y + coridoor.size.y; j++) {
-					grid[i, j] = -2;
-				}
-			}
-			if(rooms[southRooms[minDistIndex] - 1].distFromStart == 0)
-				rooms[southRooms[minDistIndex] - 1].generateCoridoors(grid, rooms, this.distFromStart+1);
-		}
-    }
-    private void generateWestCoridoor(int[,] grid, List<Room> rooms, int thickness) {
-    	int[] westRooms = new int[this.size.y];
-		int minDist = -1;
-		int minDistIndex = -1;
-		int minDistTickness = -1;
-		for(int i = 0; i < this.size.y; i++) {
-			for(int j = 0; true; j++) {
-				if(this.pos.x - j-1 < 0 || grid[this.pos.x - j-1, this.pos.y + i] == -2 ||
-					(grid[this.pos.x - j-1, this.pos.y + i] == -1 && grid[this.pos.x - j, this.pos.y + i] == -1 && grid[this.pos.x - j+1, this.pos.y + i] == -1)) {
-					westRooms[i] = -1;
-					break;
-				} else if(grid[this.pos.x - j-1, this.pos.y + i] > 0) {
-					westRooms[i] = grid[this.pos.x - j-1, this.pos.y + i];
-					if(minDist == -1 || j < minDist) {
-						minDist = j;
-						minDistIndex = i;
-						minDistTickness = 1;
-					} else if(westRooms[minDistIndex] == westRooms[i] && i == minDistIndex + minDistTickness)
-						minDistTickness++;
-					break;
-				}
-			}
-		}
-		if(minDist != -1 && (rooms[westRooms[minDistIndex] - 1].distFromStart == 0 || Random.Range(0f, 1f) < 0.25f)) {
-			foreach(Room adjacentRoom in adjacentRooms) {
-				foreach(Room secondAdjacentRoom in adjacentRoom.adjacentRooms)
-					if(secondAdjacentRoom == rooms[westRooms[minDistIndex] - 1])
-						return;
-			}
-			while(minDistTickness > thickness) {
-				if(Random.Range(0f, 1f) < 0.5f)
-					minDistIndex++;
-				minDistTickness--;
-			}
-			Room coridoor = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.parent)).GetComponent<Room>();
-			coridoor.generate(minDist, minDistTickness, this.pos.x - minDist, this.pos.y + minDistIndex, 0, 0, 0);
-			coridoor.adjacentRooms.Add(this);
-			coridoor.adjacentRooms.Add(rooms[westRooms[minDistIndex] - 1]);
-			this.adjacentRooms.Add(coridoor);
-			rooms[westRooms[minDistIndex] - 1].adjacentRooms.Add(coridoor);
-			for(int i = coridoor.pos.x; i < coridoor.pos.x + coridoor.size.x; i++) {
-				for(int j = Mathf.Max(0, coridoor.pos.y - 1); j < Mathf.Min(coridoor.pos.y + coridoor.size.y + 1, grid.GetLength(1)); j++) {
-					grid[i, j] = -2;
-				}
-			}
-			if(rooms[westRooms[minDistIndex] - 1].distFromStart == 0)
-				rooms[westRooms[minDistIndex] - 1].generateCoridoors(grid, rooms, this.distFromStart+1);
-		}
-    }   
-
     public void enemyTurn() {
     	List<Move> moves = new List<Move>();
     	foreach(Unit unit in enemyUnits) {
@@ -341,7 +132,7 @@ public class Room : MonoBehaviour {
     	}
     	if(moves.Count > 0) {
     		Move m = moves[Random.Range(0, moves.Count)];
-    		if(Stage.s.cameraFollow == 0)
+    		if(Settings.cameraFollow == 0)
     			CameraController.follow(m.unit.gameObject, 0.5f);
     		m.unit.move(m.pos);
     	}
@@ -363,7 +154,7 @@ public class Room : MonoBehaviour {
     	if(inRoom(pos))
     		return this;
     	// foreach(Room room in adjacentRooms) {
-    	foreach(Transform child in Stage.s.transform.GetChild(0)) {
+    	foreach(Transform child in GameObject.Find("Controller").transform) {
     		Room room = child.GetComponent<Room>();
     		if(room.inRoom(pos))
 				return room;
@@ -373,9 +164,9 @@ public class Room : MonoBehaviour {
 
     public bool canMoveTo(Vector2Int pos, int team) {
     	if(inRoom(pos))
-	    	return !(Stage.s.objects[pos.x, pos.y] is NotWalkable) &&
-	    		   !(Stage.s.objects[pos.x, pos.y] is Unit && (team == ((Unit)Stage.s.objects[pos.x, pos.y]).team || team == -1));
-		else if(team == Stage.s.playerTeam) {
+	    	return !(Controller.objects[pos.x, pos.y] is NotWalkable) &&
+	    		   !(Controller.objects[pos.x, pos.y] is Unit && (team == ((Unit)Controller.objects[pos.x, pos.y]).team || team == -1));
+		else if(team == 0) {
 			// Only player units can move to other rooms
 			Room room = returnRoom(pos);
 			// Can move inside rooms with no enemies or two tiles into rooms with
@@ -392,7 +183,7 @@ public class Room : MonoBehaviour {
             x = Random.Range(this.pos.x, this.pos.x + this.size.x);
             y = Random.Range(this.pos.y, this.pos.y + this.size.y);
             tries++;
-        } while(Stage.s.objects[x, y] != null && tries < 100);
+        } while(Controller.objects[x, y] != null && tries < 100);
         if(tries < 100)
         	return new Vector2Int(x, y);
         else
@@ -404,7 +195,7 @@ public class Room : MonoBehaviour {
     		Bishop bishop = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Bishop"), transform.GetChild(2))).GetComponent<Bishop>();
 			bishop.setSprite(team);
 			bishop.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(bishop);
 			else
 				friendlyUnits.Add(bishop);
@@ -416,7 +207,7 @@ public class Room : MonoBehaviour {
     		King king = ((GameObject)Instantiate(Resources.Load("prefabs/Units/King"), transform.GetChild(2))).GetComponent<King>();
 			king.setSprite(team);
 			king.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(king);
 			else
 				friendlyUnits.Add(king);
@@ -428,7 +219,7 @@ public class Room : MonoBehaviour {
     		Knight knight = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Knight"), transform.GetChild(2))).GetComponent<Knight>();
 			knight.setSprite(team);
 			knight.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(knight);
 			else
 				friendlyUnits.Add(knight);
@@ -440,7 +231,7 @@ public class Room : MonoBehaviour {
     		Pawn pawn = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Pawn"), transform.GetChild(2))).GetComponent<Pawn>();
 			pawn.setSprite(team);
 			pawn.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(pawn);
 			else
 				friendlyUnits.Add(pawn);
@@ -452,7 +243,7 @@ public class Room : MonoBehaviour {
     		Queen queen = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Queen"), transform.GetChild(2))).GetComponent<Queen>();
 			queen.setSprite(team);
 			queen.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(queen);
 			else
 				friendlyUnits.Add(queen);
@@ -464,7 +255,7 @@ public class Room : MonoBehaviour {
     		Rook rook = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Rook"), transform.GetChild(2))).GetComponent<Rook>();
 			rook.setSprite(team);
 			rook.place(this, pos.x, pos.y);
-			if(team != Stage.s.playerTeam)
+			if(team != 0)
 				enemyUnits.Add(rook);
 			else
 				friendlyUnits.Add(rook);

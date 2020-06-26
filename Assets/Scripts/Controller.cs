@@ -3,40 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
-public class Stage : MonoBehaviour {
-	public static Stage s;
+public class Controller : MonoBehaviour {
 	Vector3 clickMousePos;
 
-	// Setting
-	public float unitSpeed = 5f;
-	public int cameraFollow = 0; // 0 == All, 1 == Friendly, 2 == None
+	private int level;
+	public static int score;
 
-	public int playerTeam;
+	public static Object[,] objects;
+	public static Unit selectedUnit;
 
-	public int points;
-
-	public Object[,] objects;
-	public Object selectedObject;
-
-	public Unit movedUnit;
-	public bool enemyTurn;
-	public bool unitMoving;
-	public Unit killedUnit;
+	public static Unit movedUnit;
+	public static bool enemyTurn;
+	public static bool unitMoving;
+	public static Unit killedUnit;
 
     void Start() {
-    	Stage.s = this;
-        generate(75);
+    	this.level = 0;
+    	score = 0;
+    	generateFirstLevel();
     }
 
-    public void generate(int size) {
+    private void generateFirstLevel() {
     	// Destroy room objects
-    	foreach (Transform child in transform.GetChild(0)) {
+    	foreach (Transform child in transform) {
 			GameObject.Destroy(child.gameObject);
 		}
-		points = 0;
+		objects = new Object[15, 15];
+		selectedUnit = null;
+
+		movedUnit = null;
+		enemyTurn = false;
+		unitMoving = false;
+		killedUnit = null;
+
+		// Generate the starting room
+  		Room startingRoom = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform)).GetComponent<Room>();
+		startingRoom.generate(15, 15, 0, 0);
+		Camera.main.transform.position = new Vector3((15-1) / 2f, (15-1) / 2f, -10);
+		// Populate the room with starting unit
+        startingRoom.addKing(0);
+    }
+
+    private void generateLevel() {/*
+    	// Destroy room objects
+    	foreach (Transform child in transform) {
+			GameObject.Destroy(child.gameObject);
+		}
 		this.objects = new Object[size, size];
-		selectedObject = null;
+		selectedUnit = null;
 
 		movedUnit = null;
 		enemyTurn = false;
@@ -104,52 +118,40 @@ public class Stage : MonoBehaviour {
         		rooms.Add(room);
 			} else
 				tries++;
-		}
-
-		// foreach(Room r in rooms)
-		startingRoom.generateCoridoors(grid, rooms, 1);
-
-		// GameObject referenceTile = (GameObject)Instantiate(Resources.Load("prefabs/Tile"));
-		// for(int i = 0; i < grid.GetLength(0); i++) {
-		// 	for(int j = 0; j < grid.GetLength(1); j++) {
-		// 		GameObject tile = (GameObject)Instantiate(referenceTile, transform.GetChild(0));
-		// 		tile.transform.localPosition = new Vector2(i, j);
-		// 		tile.GetComponent<SpriteRenderer>().sortingOrder = grid[i, j];
-		// 		tile.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Untitled");
-		// 	}
-		// }
+		}*/
     }
+
     void Update() {
     	if(!unitMoving) {
-    		if(selectedObject != null && ((Unit)selectedObject).route.Count > 0){
-    			((Unit)selectedObject).move(((Unit)selectedObject).route[0]);
-    			((Unit)selectedObject).route.RemoveAt(0);
+    		if(selectedUnit != null && selectedUnit.route.Count > 0){
+    			selectedUnit.move(selectedUnit.route[0]);
+    			selectedUnit.route.RemoveAt(0);
     		} else if(enemyTurn) {
     			movedUnit.room.enemyTurn();
     		} else
 				checkClick();
 
-    	} else if (!CameraController.moving) {
-    		movedUnit.transform.position = Vector2.MoveTowards(movedUnit.transform.position, movedUnit.pos, unitSpeed * Time.deltaTime);
+    	} else if(!CameraController.moving) {
+    		movedUnit.transform.position = Vector2.MoveTowards(movedUnit.transform.position, movedUnit.pos, Settings.unitSpeed * Time.deltaTime);
     		if(killedUnit != null && Vector2.Distance(new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y), movedUnit.pos) < 0.6875f) {
-    			killedUnit.GetComponent<Explodable>().generateFragments((movedUnit.pos - new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y)).normalized * unitSpeed);
+    			killedUnit.GetComponent<Explodable>().generateFragments((movedUnit.pos - new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y)).normalized * Settings.unitSpeed);
     			killedUnit = null;
-				GameObject.Find("ScoreText").gameObject.GetComponent<UnityEngine.UI.Text>().text = points + " Points";
+				GameObject.Find("ScoreText").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
     		} else if(movedUnit.transform.position.x == movedUnit.pos.x && movedUnit.transform.position.y == movedUnit.pos.y) {
     			unitMoving = false;
-    			if(!enemyTurn && selectedObject != null && ((Unit)selectedObject).route.Count == 0)
-					((Unit)selectedObject).markNextTiles();
+    			if(!enemyTurn && selectedUnit != null && selectedUnit.route.Count == 0)
+					selectedUnit.markNextTiles();
     		}
     	}
 
     	if(Input.GetKeyDown("r"))
-    		generate(75);
+    		generateFirstLevel();
     }
 
     private void checkClick() {
     	if(Input.GetMouseButtonDown(0))
     		clickMousePos = Input.mousePosition;
-        if(Input.GetMouseButtonUp(0) && !Stage.IsPointerOverUIObject() && clickMousePos == Input.mousePosition) {
+        if(Input.GetMouseButtonUp(0) && !Controller.IsPointerOverUIObject() && clickMousePos == Input.mousePosition) {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
     		removeMarkers();
@@ -158,12 +160,12 @@ public class Stage : MonoBehaviour {
             	if(hit.transform.GetComponent<Object>() is Clickable)
         			(hit.transform.GetComponent<Object>() as Clickable).onClick();
             } else
-        		selectedObject = null;
+        		selectedUnit = null;
         }
     }
 
     private void removeMarkers() {
-    	foreach (Transform child in transform.GetChild(0)) {
+    	foreach (Transform child in transform) {
     		foreach (Transform childchild in child.transform.GetChild(3)) {
 				GameObject.Destroy(childchild.gameObject);
 			}

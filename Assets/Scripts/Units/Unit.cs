@@ -24,10 +24,10 @@ public abstract class Unit : Object, Clickable {
 
     public void onClick() {
     	Debug.Log("Hi");
-		Stage.s.selectedObject = this;
-		if(Stage.s.cameraFollow <= 1)
+		Controller.selectedUnit = this;
+		if(Settings.cameraFollow <= 1)
 			CameraController.follow(gameObject, 0.25f);
-		if(this.team == Stage.s.playerTeam)
+		if(this.team == 0)
 			markNextTiles();
 	}
 
@@ -47,7 +47,7 @@ public abstract class Unit : Object, Clickable {
     		Vector2Int tilePos = nextTiles[i];
 			Marker marker = ((GameObject)Instantiate(Resources.Load("prefabs/Marker"), this.room.transform.GetChild(3))).GetComponent<Marker>();
 			if(this.room.inRoom(tilePos)) {
-				if(Stage.s.objects[tilePos.x, tilePos.y] is Unit)
+				if(Controller.objects[tilePos.x, tilePos.y] is Unit)
 					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[2];
 				else
 					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
@@ -63,7 +63,7 @@ public abstract class Unit : Object, Clickable {
 				marker.route = routes[i];
     	}
     	// Set camera back to following the selected piece after an enemy piece has moved
-    	if(Stage.s.cameraFollow <= 1)
+    	if(Settings.cameraFollow <= 1)
     		CameraController.follow(gameObject, 0.25f);
     }
     private List<List<Vector2Int>> getRoutes() {
@@ -123,29 +123,29 @@ public abstract class Unit : Object, Clickable {
 
     public void move(Vector2Int pos) {
     	Room room = this.room.returnRoom(pos);
-    	if(!(Stage.s.objects[pos.x, pos.y] is Unit) || ((Unit)Stage.s.objects[pos.x, pos.y]).dealDamage(100)) {
+    	if(!(Controller.objects[pos.x, pos.y] is Unit) || ((Unit)Controller.objects[pos.x, pos.y]).dealDamage(100)) {
     		// Debug.Log((this.team == 0 ? "White " : "Black ") + this.GetType() + " - " + this.pos.x + ", " + this.pos.y + " - " + posOut.x + ", " + posOut.y);
     		Vector2Int temp = this.pos;
 			place(room, pos.x, pos.y);
 			transform.position = new Vector3(temp.x, temp.y, transform.position.z);
 			transform.SetParent(room.transform.GetChild(2));
-			Stage.s.movedUnit = this;
+			Controller.movedUnit = this;
 			if(room.enemyUnits.Count > 0)
-				Stage.s.enemyTurn = this.team == Stage.s.playerTeam;
-			Stage.s.unitMoving = true;
+				Controller.enemyTurn = this.team == 0;
+			Controller.unitMoving = true;
     	}
     }
 
     public bool dealDamage(int damage) {
     	this.health -= damage;
     	if(checkDeath()) {
-    		Stage.s.killedUnit = this;
-    		if(this.team != Stage.s.playerTeam) {
+    		Controller.killedUnit = this;
+    		if(this.team != 0) {
 	    		for(int i = this.room.enemyUnits.Count - 1; i >= 0; i--) {
 					if(this == this.room.enemyUnits[i])
 						this.room.enemyUnits.RemoveAt(i);
 				}
-				Stage.s.points += returnPoints();
+				Controller.score += returnPoints();
 			}
     	}
     	return checkDeath();

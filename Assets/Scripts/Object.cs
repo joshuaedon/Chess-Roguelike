@@ -10,8 +10,8 @@ public abstract class Object : MonoBehaviour {
 
     public void place(Room room, int xPos, int yPos) {
     	if(this.room != null)
-    		Stage.s.objects[this.pos.x, this.pos.y] = null;
-		Stage.s.objects[xPos, yPos] = this;
+    		Controller.objects[this.pos.x, this.pos.y] = null;
+		Controller.objects[xPos, yPos] = this;
 		setPosition(room, xPos, yPos);
     }
 

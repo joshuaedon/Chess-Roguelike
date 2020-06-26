@@ -10,12 +10,12 @@ public class Pawn : Unit {
 		List<Vector2Int> tilePositions = new List<Vector2Int>();
 		foreach(Vector2Int tileOffset in moveOffsets) {
 			Vector2Int tilePos = this.pos + tileOffset;
-			if(this.room.canMoveTo(tilePos, this.team) && !(Stage.s.objects[tilePos.x, tilePos.y] is Unit))
+			if(this.room.canMoveTo(tilePos, this.team) && !(Controller.objects[tilePos.x, tilePos.y] is Unit))
 				tilePositions.Add(tilePos);
 		}
 		foreach(Vector2Int tileOffset in attackOffsets) {
 			Vector2Int tilePos = this.pos + tileOffset;
-			if(this.room.canMoveTo(tilePos, this.team) && Stage.s.objects[tilePos.x, tilePos.y] is Unit)
+			if(this.room.canMoveTo(tilePos, this.team) && Controller.objects[tilePos.x, tilePos.y] is Unit)
 				tilePositions.Add(tilePos);
 		}
 		return tilePositions;
