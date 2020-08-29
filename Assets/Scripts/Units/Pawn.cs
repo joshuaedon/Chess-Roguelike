@@ -20,8 +20,4 @@ public class Pawn : Unit {
 		}
 		return tilePositions;
     }
-
-    public override int returnPoints() {
-    	return 1;
-    }
 }

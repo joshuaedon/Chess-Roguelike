@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : Object, NotWalkable {
+public class Obstacle : Object/*, NotWalkable*/ {
 	public void setSprite(int[,] pattern, int x, int y) {
 		int index = 0;
 		if(x - 1 >= 0 && pattern[x - 1, y] == -1)

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"star",
+				"startingRoom"
+			],
+			[
 				"Gme",
 				"GameObject"
 			],
@@ -383,17 +387,8 @@
 			"file": "Assets/Scripts/Controller.cs",
 			"settings":
 			{
-				"buffer_size": 6288,
+				"buffer_size": 7334,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "Assets/Scripts/Room.cs",
-			"settings":
-			{
-				"buffer_size": 9141,
-				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
@@ -407,10 +402,19 @@
 			}
 		},
 		{
-			"file": "Assets/Scripts/Settings.cs",
+			"file": "Assets/Scripts/Room.cs",
 			"settings":
 			{
-				"buffer_size": 237,
+				"buffer_size": 8762,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/UnitType.cs",
+			"settings":
+			{
+				"buffer_size": 275,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -419,7 +423,61 @@
 			"file": "Assets/Scripts/Units/Unit.cs",
 			"settings":
 			{
-				"buffer_size": 5163,
+				"buffer_size": 5091,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/Bishop.cs",
+			"settings":
+			{
+				"buffer_size": 1378,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/King.cs",
+			"settings":
+			{
+				"buffer_size": 696,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/Knight.cs",
+			"settings":
+			{
+				"buffer_size": 674,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/Pawn.cs",
+			"settings":
+			{
+				"buffer_size": 1005,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/Queen.cs",
+			"settings":
+			{
+				"buffer_size": 2408,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/Units/Rook.cs",
+			"settings":
+			{
+				"buffer_size": 1386,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -457,25 +515,30 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts",
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units"
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts"
 	],
 	"file_history":
 	[
+		"/C/Users/joshu/Google Drive/Unity/Unity-2D-Destruction-master/Out Of Control/Assets/Scripts/Controller.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Object.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Tiles/WalkableTile.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Tiles/ObjectTile.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Obstacle.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Tile.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Tiles/Tile.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Marker.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/CameraController.cs",
+		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Settings.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Rook.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Queen.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Pawn.cs",
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Object.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Bishop.cs",
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Marker.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Contoller.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Stage.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Knight.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/King.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Units/Unit.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Room.cs",
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Obstacle.cs",
-		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/CameraController.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Explodable.cs",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/ToAdd",
 		"/C/Users/joshu/Google Drive/Unity/Chess Roguelike/Assets/Scripts/Fragment.cs",
@@ -583,17 +646,11 @@
 		"/C/Users/joshu/Google Drive/Unity/AI Race/Assets/Scripts/cameraController.cs",
 		"/C/Users/joshu/Google Drive/Unity/AI Race/Assets/Scripts/mapController.cs",
 		"/C/Users/joshu/Google Drive/School/Warwick/Year 3/CS310 - Project/evolutionSimulation/Dungeon Crawler/Assets/Scripts/CameraController.cs",
-		"/C/Users/joshu/Google Drive/School/Warwick/Year 3/CS310 - Project/evolutionSimulation/Evolution Simulation/Assets/Scripts/AgentController.cs.meta",
-		"/C/Users/joshu/Google Drive/Processing/evoltest/evoltest/Node.pde",
-		"/C/Users/joshu/Google Drive/Processing/evoltest/evoltest/Bot.pde",
-		"/C/Users/joshu/Google Drive/Processing/evoltest/evoltest/notes.pde",
-		"/C/Users/joshu/OneDrive/Desktop/jaguar-capital copy/index.html",
-		"/C/Users/joshu/AppData/Local/Temp/Temp1_My profile.zip/My profile/style.css",
-		"/C/Users/joshu/OneDrive/Desktop/ffff/My profile/index.html"
+		"/C/Users/joshu/Google Drive/School/Warwick/Year 3/CS310 - Project/evolutionSimulation/Evolution Simulation/Assets/Scripts/AgentController.cs.meta"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -608,6 +665,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"score",
+			"dealDama",
+			"units.Add",
+			"units",
+			"Units",
+			"units",
+			"if(team != 0)",
+			"killedUnit",
+			"dealDam",
+			"Stage.s.movedUnit",
+			"team != Controller.playerTeam",
 			"Stage.s.objects",
 			"cameraFollow",
 			"Stage.s.objects",
@@ -724,18 +792,7 @@
 			"<",
 			"yPos",
 			"r.pos.y",
-			"r.pos.x",
-			"room",
-			"northDistances",
-			"rooms",
-			"posY",
-			"posX",
-			"closeness",
-			"CameraController",
-			"25f",
-			"selectedObject",
-			"false",
-			"12);"
+			"r.pos.x"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -756,7 +813,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -765,15 +822,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6288,
+						"buffer_size": 7334,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1157,
-								1157
+								6138,
+								6556
 							]
 						],
 						"settings":
@@ -781,7 +838,7 @@
 							"syntax": "Packages/C#/C#.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 126.0,
+						"translation.y": 487.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -789,34 +846,6 @@
 				},
 				{
 					"buffer": 1,
-					"file": "Assets/Scripts/Room.cs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9141,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9141,
-								9141
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C#/C#.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "Assets/Scripts/CameraController.cs",
 					"semi_transient": false,
 					"settings":
@@ -828,8 +857,8 @@
 						"selection":
 						[
 							[
-								2769,
-								2769
+								3715,
+								3738
 							]
 						],
 						"settings":
@@ -837,27 +866,55 @@
 							"syntax": "Packages/C#/C#.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 504.0,
+						"translation.y": 627.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "Assets/Scripts/Settings.cs",
+					"buffer": 2,
+					"file": "Assets/Scripts/Room.cs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 237,
+						"buffer_size": 8762,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								191
+								1050,
+								1151
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/Units/UnitType.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 275,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								220,
+								220
 							]
 						],
 						"settings":
@@ -877,15 +934,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5163,
+						"buffer_size": 5091,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5163,
-								5163
+								472,
+								341
 							]
 						],
 						"settings":
@@ -893,10 +950,178 @@
 							"syntax": "Packages/C#/C#.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 236.0,
+						"translation.y": 108.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Scripts/Units/Bishop.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1378,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1375,
+								1375
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Assets/Scripts/Units/King.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								693,
+								693
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "Assets/Scripts/Units/Knight.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 674,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								671,
+								671
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Assets/Scripts/Units/Pawn.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1005,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1002,
+								1002
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/Scripts/Units/Queen.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2408,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2405,
+								2405
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Scripts/Units/Rook.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1386,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1386,
+								1386
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -904,7 +1129,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -941,7 +1166,7 @@
 	"project": "sublime text project.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":

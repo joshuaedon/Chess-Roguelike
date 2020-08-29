@@ -8,11 +8,9 @@ public class Room : MonoBehaviour {
     public Vector2Int size;
     public int distFromStart;
     public List<Room> adjacentRooms;
-	public List<Unit> enemyUnits;
-	public List<Unit> friendlyUnits;
 	int turnExited;
 
-    public void generate(int width, int height, int xPos, int yPos, int enemies = -1, int holeSize = -1, float obstacleChance = 0.05f) {
+    public void generate(int width, int height, int xPos, int yPos, int holeSize = -1, float obstacleChance = 0.05f) {
   		this.pos = new Vector2Int(xPos, yPos);
   		this.size = new Vector2Int(width, height);
   		transform.position = new Vector2(xPos, yPos);
@@ -23,7 +21,7 @@ public class Room : MonoBehaviour {
     	Sprite[] tileSprites = Resources.LoadAll<Sprite>("Sprites/Tiles/DefaultTiles");
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				GameObject tile = (GameObject)Instantiate(referenceTile, transform.GetChild(0));;
+				GameObject tile = (GameObject)Instantiate(referenceTile, transform.GetChild(0));
 				if((i + j + pos.x + pos.y) % 2 == 0)
 					tile.GetComponent<SpriteRenderer>().sprite = tileSprites[Random.Range(0, (int)tileSprites.Length/2)];
 				else
@@ -44,16 +42,14 @@ public class Room : MonoBehaviour {
     	Destroy(referenceTile);
     	Destroy(referenceObstacle);
 
-    	if(enemies == -1)
-    		enemies = Random.Range(3, 15);
-    	for(int i = 0; i < enemies; i++) {
-			switch(Random.Range(0, 6)) {
-				case 0: addKing(1); break;
-		        case 1: addBishop(1); break;
-				case 2: addKnight(1); break;
-				case 3: addPawn(1); break;
-				case 4: addQueen(1); break;
-				case 5: addRook(1); break;
+    	addKing(1);
+    	for(int i = 0; i < Random.Range(2, 14); i++) {
+			switch(Random.Range(0, 5)) {
+		        case 0: addBishop(1); break;
+				case 1: addKnight(1); break;
+				case 2: addPawn(1); break;
+				case 3: addQueen(1); break;
+				case 4: addRook(1); break;
 			}
 		}
     }
@@ -123,11 +119,13 @@ public class Room : MonoBehaviour {
 		return grid;
     }
 
-    public void enemyTurn() {
+    public void turn(int team) { // int itterations, float x [half of considerations will go based on x+(inx/considerations)*(1-2*x) < Random(0f, 1f)], int maxConsiderations
     	List<Move> moves = new List<Move>();
-    	foreach(Unit unit in enemyUnits) {
-    		foreach(Vector2Int pos in unit.getNextTiles()) {
-    			moves.Add(new Move(unit, pos));
+    	foreach(Unit unit in Controller.units) {
+    		if(unit.team == team) {
+	    		foreach(Vector2Int pos in unit.getNextTiles()) {
+	    			moves.Add(new Move(unit, pos));
+	    		}
     		}
     	}
     	if(moves.Count > 0) {
@@ -164,7 +162,7 @@ public class Room : MonoBehaviour {
 
     public bool canMoveTo(Vector2Int pos, int team) {
     	if(inRoom(pos))
-	    	return !(Controller.objects[pos.x, pos.y] is NotWalkable) &&
+	    	return /*!(Controller.objects[pos.x, pos.y] is NotWalkable) &&*/
 	    		   !(Controller.objects[pos.x, pos.y] is Unit && (team == ((Unit)Controller.objects[pos.x, pos.y]).team || team == -1));
 		else if(team == 0) {
 			// Only player units can move to other rooms
@@ -195,10 +193,7 @@ public class Room : MonoBehaviour {
     		Bishop bishop = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Bishop"), transform.GetChild(2))).GetComponent<Bishop>();
 			bishop.setSprite(team);
 			bishop.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(bishop);
-			else
-				friendlyUnits.Add(bishop);
+			Controller.units.Add(bishop);
 		}
     }
     public void addKing(int team) {
@@ -207,10 +202,7 @@ public class Room : MonoBehaviour {
     		King king = ((GameObject)Instantiate(Resources.Load("prefabs/Units/King"), transform.GetChild(2))).GetComponent<King>();
 			king.setSprite(team);
 			king.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(king);
-			else
-				friendlyUnits.Add(king);
+			Controller.units.Add(king);
 		}
     }
     public void addKnight(int team) {
@@ -219,10 +211,7 @@ public class Room : MonoBehaviour {
     		Knight knight = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Knight"), transform.GetChild(2))).GetComponent<Knight>();
 			knight.setSprite(team);
 			knight.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(knight);
-			else
-				friendlyUnits.Add(knight);
+			Controller.units.Add(knight);
 		}
     }
     public void addPawn(int team) {
@@ -231,10 +220,7 @@ public class Room : MonoBehaviour {
     		Pawn pawn = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Pawn"), transform.GetChild(2))).GetComponent<Pawn>();
 			pawn.setSprite(team);
 			pawn.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(pawn);
-			else
-				friendlyUnits.Add(pawn);
+			Controller.units.Add(pawn);
 		}
     }
     public void addQueen(int team) {
@@ -243,10 +229,7 @@ public class Room : MonoBehaviour {
     		Queen queen = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Queen"), transform.GetChild(2))).GetComponent<Queen>();
 			queen.setSprite(team);
 			queen.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(queen);
-			else
-				friendlyUnits.Add(queen);
+			Controller.units.Add(queen);
 		}
     }
     public void addRook(int team) {
@@ -255,10 +238,7 @@ public class Room : MonoBehaviour {
     		Rook rook = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Rook"), transform.GetChild(2))).GetComponent<Rook>();
 			rook.setSprite(team);
 			rook.place(this, pos.x, pos.y);
-			if(team != 0)
-				enemyUnits.Add(rook);
-			else
-				friendlyUnits.Add(rook);
+			Controller.units.Add(rook);
 		}
     }
 }

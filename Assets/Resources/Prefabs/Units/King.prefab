@@ -101,7 +101,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6875, y: 0.6875}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.6875, y: 0.6875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -149,11 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc39a8659a49cf488ef3ac521b25d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 4837840602407752856, guid: b8a5c65de277cf9408df01975acfcbbb, type: 3}
-  - {fileID: -7808734593389313954, guid: b8a5c65de277cf9408df01975acfcbbb, type: 3}
-  room: {fileID: 0}
+  sprites: []
   pos: {x: 0, y: 0}
+  room: {fileID: 0}
+  type: {fileID: 11400000, guid: 7df49c216a033754784269a391c28f3d, type: 2}
   team: 0
   route: []
 --- !u!114 &8585046767189319291

@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class Object : MonoBehaviour {
 
 	public Sprite[] sprites;
-	public Room room;
 	public Vector2Int pos;
+	public Room room;
 
     public void place(Room room, int xPos, int yPos) {
     	if(this.room != null)
@@ -25,4 +25,3 @@ public abstract class Object : MonoBehaviour {
 public interface Clickable {
     void onClick();
 }
-public interface NotWalkable {}

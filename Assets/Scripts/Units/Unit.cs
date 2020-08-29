@@ -5,6 +5,7 @@ using System.Linq;
 
 public abstract class Unit : Object, Clickable {
 
+	public UnitType type;
 	public int team;
 	int maxHealth;
 	int health;
@@ -19,7 +20,7 @@ public abstract class Unit : Object, Clickable {
 
 	public void setSprite(int team) {
 		this.team = team;
-		GetComponent<SpriteRenderer>().sprite = sprites[this.team];
+		GetComponent<SpriteRenderer>().sprite = this.type.sprites[this.team];
     }
 
     public void onClick() {
@@ -35,7 +36,7 @@ public abstract class Unit : Object, Clickable {
 		List<Vector2Int> nextTiles = new List<Vector2Int>();
 		List<List<Vector2Int>> routes = new List<List<Vector2Int>>();
 
-    	if(this.room.enemyUnits.Count > 0)
+    	if(Controller.areEnemies())
     		nextTiles = getNextTiles();
     	else {
     		routes = getRoutes();
@@ -53,10 +54,10 @@ public abstract class Unit : Object, Clickable {
 					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
 			} else {
 				Room room = this.room.returnRoom(tilePos);
-				if(room.enemyUnits.Count == 0)
-					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
-				else
+				if(Controller.areEnemies())
 					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[1];
+				else
+					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
 			}
 			marker.setPosition(this.room, tilePos.x, tilePos.y);
 			if(routes.Count > 0)
@@ -88,7 +89,7 @@ public abstract class Unit : Object, Clickable {
 			setPosition(room, routes[routes.Count-1][routes[routes.Count-1].Count-1].x, routes[routes.Count-1][routes[routes.Count-1].Count-1].y);
 
 			// If there are no enemies in the room, search the next moves
-			if(room.enemyUnits.Count == 0) {
+			if(!Controller.areEnemies()) {
 				foreach(Vector2Int nextTilePos in getNextTiles()) {
 					// Check if the coordinate is already in routes or toSearch
 					bool alreadyFound = false;
@@ -130,7 +131,7 @@ public abstract class Unit : Object, Clickable {
 			transform.position = new Vector3(temp.x, temp.y, transform.position.z);
 			transform.SetParent(room.transform.GetChild(2));
 			Controller.movedUnit = this;
-			if(room.enemyUnits.Count > 0)
+			if(Controller.areEnemies())
 				Controller.enemyTurn = this.team == 0;
 			Controller.unitMoving = true;
     	}
@@ -140,18 +141,16 @@ public abstract class Unit : Object, Clickable {
     	this.health -= damage;
     	if(checkDeath()) {
     		Controller.killedUnit = this;
-    		if(this.team != 0) {
-	    		for(int i = this.room.enemyUnits.Count - 1; i >= 0; i--) {
-					if(this == this.room.enemyUnits[i])
-						this.room.enemyUnits.RemoveAt(i);
-				}
-				Controller.score += returnPoints();
-			}
+			if(this.team != 0)
+				Controller.score += this.type.cost;
+    		for(int i = Controller.units.Count - 1; i >= 0; i--) {
+				if(this == Controller.units[i])
+					Controller.units.RemoveAt(i);
+    		}
     	}
     	return checkDeath();
     }
     public bool checkDeath() {
     	return health <= 0;
     }
-    public abstract int returnPoints();
 }

@@ -63,8 +63,4 @@ public class Queen : Unit {
 		}
 		return tilePositions;
     }
-
-    public override int returnPoints() {
-    	return 9;
-    }
 }

@@ -9,7 +9,9 @@ public class Controller : MonoBehaviour {
 	private int level;
 	public static int score;
 
+	public static List<Unit> units; // Change to an array of lists with a primary index for each team?
 	public static Object[,] objects;
+	private List<Room> rooms;
 	public static Unit selectedUnit;
 
 	public static Unit movedUnit;
@@ -28,7 +30,9 @@ public class Controller : MonoBehaviour {
     	foreach (Transform child in transform) {
 			GameObject.Destroy(child.gameObject);
 		}
+		units = new List<Unit>();
 		objects = new Object[15, 15];
+		this.rooms = new List<Room>();
 		selectedUnit = null;
 
 		movedUnit = null;
@@ -38,10 +42,11 @@ public class Controller : MonoBehaviour {
 
 		// Generate the starting room
   		Room startingRoom = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform)).GetComponent<Room>();
+  		rooms.Add(startingRoom);
 		startingRoom.generate(15, 15, 0, 0);
 		Camera.main.transform.position = new Vector3((15-1) / 2f, (15-1) / 2f, -10);
 		// Populate the room with starting unit
-        startingRoom.addKing(0);
+        startingRoom.addQueen(0);
     }
 
     private void generateLevel() {/*
@@ -123,20 +128,39 @@ public class Controller : MonoBehaviour {
 
     void Update() {
     	if(!unitMoving) {
+    		// Unit being moved has arrived at its destination
     		if(selectedUnit != null && selectedUnit.route.Count > 0){
+    			// Unit is partly moved through its route
     			selectedUnit.move(selectedUnit.route[0]);
     			selectedUnit.route.RemoveAt(0);
     		} else if(enemyTurn) {
-    			movedUnit.room.enemyTurn();
+    			movedUnit.room.turn(1);
     		} else
 				checkClick();
 
     	} else if(!CameraController.moving) {
+    		// An enemy only takes its move once the camera has reached their unit
+    		// Move unit to its next tile
     		movedUnit.transform.position = Vector2.MoveTowards(movedUnit.transform.position, movedUnit.pos, Settings.unitSpeed * Time.deltaTime);
+    		// 
     		if(killedUnit != null && Vector2.Distance(new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y), movedUnit.pos) < 0.6875f) {
     			killedUnit.GetComponent<Explodable>().generateFragments((movedUnit.pos - new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y)).normalized * Settings.unitSpeed);
+    			/*if(killedUnit is King) {
+
+			    		foreach(Unit unit in this.room.friendlyUnits.Count - 1; i >= 0; i--) {
+							if(this == this.room.friendlyUnits[i])
+								this.room.friendlyUnits.RemoveAt(i);
+						}
+					} else {
+			    		for(int i = this.room.enemyUnits.Count - 1; i >= 0; i--) {
+							if(this == this.room.enemyUnits[i])
+								this.room.enemyUnits.RemoveAt(i);
+						}
+						Controller.score += returnPoints();
+					}
+    			}*/
     			killedUnit = null;
-				GameObject.Find("ScoreText").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
+				GameObject.Find("ScoreText").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Score: " + score + "    Level: " + level;
     		} else if(movedUnit.transform.position.x == movedUnit.pos.x && movedUnit.transform.position.y == movedUnit.pos.y) {
     			unitMoving = false;
     			if(!enemyTurn && selectedUnit != null && selectedUnit.route.Count == 0)
@@ -170,6 +194,14 @@ public class Controller : MonoBehaviour {
 				GameObject.Destroy(childchild.gameObject);
 			}
 		}
+    }
+
+    public static bool areEnemies() {
+    	foreach(Unit unit in units) {
+    		if(unit.team > 0)
+    			return true;
+    	}
+    	return false;
     }
 
     public static bool IsPointerOverUIObject() {

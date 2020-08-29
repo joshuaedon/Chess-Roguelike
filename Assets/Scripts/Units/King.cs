@@ -17,8 +17,4 @@ public class King : Unit {
 		}
 		return tilePositions;
     }
-
-    public override int returnPoints() {
-    	return 2;
-    }
 }

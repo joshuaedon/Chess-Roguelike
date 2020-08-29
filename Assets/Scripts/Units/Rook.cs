@@ -36,7 +36,7 @@ public class Rook : Unit {
 		return tilePositions;
     }
 
-    public override int returnPoints() {
+    /*public override int returnPoints() {
     	return 5;
-    }
+    }*/
 }

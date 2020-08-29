@@ -16,8 +16,4 @@ public class Knight : Unit {
 		}
 		return tilePositions;
     }
-
-    public override int returnPoints() {
-    	return 3;
-    }
 }
