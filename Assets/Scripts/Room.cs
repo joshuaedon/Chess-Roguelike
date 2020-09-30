@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : MonoBehaviour {
-    
+	public GameObject TilesContainer;
+	public GameObject ObjectsContainer;
+	public GameObject UnitsContainer;
+	public GameObject MarkersContainer;
+
+    public RoomType type;
+
     public Vector2Int pos;
     public Vector2Int size;
-    public int distFromStart;
+    // public int distFromStart;
     public List<Room> adjacentRooms;
 	int turnExited;
 
     public void generate(int width, int height, int xPos, int yPos, int holeSize = -1, float obstacleChance = 0.05f) {
+    	setRandomType();
+
   		this.pos = new Vector2Int(xPos, yPos);
   		this.size = new Vector2Int(width, height);
   		transform.position = new Vector2(xPos, yPos);
@@ -18,41 +26,53 @@ public class Room : MonoBehaviour {
 
 		GameObject referenceTile = (GameObject)Instantiate(Resources.Load("prefabs/Tile"));
 		GameObject referenceObstacle = (GameObject)Instantiate(Resources.Load("prefabs/Obstacle"));
-    	Sprite[] tileSprites = Resources.LoadAll<Sprite>("Sprites/Tiles/DefaultTiles");
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				GameObject tile = (GameObject)Instantiate(referenceTile, transform.GetChild(0));
+				GameObject tile = (GameObject)Instantiate(referenceTile, this.TilesContainer.transform);
 				if((i + j + pos.x + pos.y) % 2 == 0)
-					tile.GetComponent<SpriteRenderer>().sprite = tileSprites[Random.Range(0, (int)tileSprites.Length/2)];
+					tile.GetComponent<SpriteRenderer>().sprite = type.whiteTile;//tileSprites[Random.Range(0, (int)tileSprites.Length/2)];
 				else
-					tile.GetComponent<SpriteRenderer>().sprite = tileSprites[Random.Range((int)tileSprites.Length/2, tileSprites.Length)];
-				tile.transform.localPosition = new Vector2(i, j);
+					tile.GetComponent<SpriteRenderer>().sprite = type.blackTile;//tileSprites[Random.Range((int)tileSprites.Length/2, tileSprites.Length)];
+				tile.transform.localPosition = new Vector2((i + j) / 2f, (j - i - 1f) / 4f);
 
-				if(pattern[i, j] == -1) {
-					Obstacle obstacle = ((GameObject)Instantiate(referenceObstacle, transform.GetChild(1))).GetComponent<Obstacle>();
+				/*if(pattern[i, j] == -1) {
+					Obstacle obstacle = ((GameObject)Instantiate(referenceObstacle, this.ObjectsContainer.transform)).GetComponent<Obstacle>();
 					obstacle.setSprite(pattern, i, j);
 					obstacle.place(this, xPos + i, yPos + j);
 				} else if(pattern[i, j] == 0 && Random.Range(0f, 1f) < obstacleChance) {
-					Obstacle obstacle = ((GameObject)Instantiate(referenceObstacle, transform.GetChild(1))).GetComponent<Obstacle>();
+					Obstacle obstacle = ((GameObject)Instantiate(referenceObstacle, this.ObjectsContainer.transform)).GetComponent<Obstacle>();
 					obstacle.setSprite();
 					obstacle.place(this, xPos + i, yPos + j);
-				}
+				}*/
 			}
 		}
     	Destroy(referenceTile);
     	Destroy(referenceObstacle);
 
-    	addKing(1);
+    	addUnit((UnitType)Resources.Load("UnitTypes/King"), 1);
     	for(int i = 0; i < Random.Range(2, 14); i++) {
 			switch(Random.Range(0, 5)) {
-		        case 0: addBishop(1); break;
-				case 1: addKnight(1); break;
-				case 2: addPawn(1); break;
-				case 3: addQueen(1); break;
-				case 4: addRook(1); break;
+		        case 0: addUnit((UnitType)Resources.Load("UnitTypes/Bishop"), 1); break;
+				case 1: addUnit((UnitType)Resources.Load("UnitTypes/Knight"), 1); break;
+				case 2: addUnit((UnitType)Resources.Load("UnitTypes/Pawn"), 1); break;
+				case 3: addUnit((UnitType)Resources.Load("UnitTypes/Queen"), 1); break;
+				case 4: addUnit((UnitType)Resources.Load("UnitTypes/Rook"), 1); break;
 			}
 		}
     }
+
+    private void setRandomType() {
+    	float rand = Random.Range(0f, 1f);
+    	if(rand < 0.4f)
+    		this.type = (RoomType)Resources.Load("RoomTypes/Default");
+    	else if(rand < 0.6f)
+    		this.type = (RoomType)Resources.Load("RoomTypes/Grass");
+    	else if(rand < 0.8f)
+    		this.type = (RoomType)Resources.Load("RoomTypes/StoneBrick");
+    	else
+    		this.type = (RoomType)Resources.Load("RoomTypes/Wood");
+    }
+
     private int[,] generatePattern(int width, int height, int holeSize) {
     	if(holeSize == -1)
     		holeSize = Random.Range(0, Mathf.Min(width/2, height/2));
@@ -130,8 +150,8 @@ public class Room : MonoBehaviour {
     	}
     	if(moves.Count > 0) {
     		Move m = moves[Random.Range(0, moves.Count)];
-    		if(Settings.cameraFollow == 0)
-    			CameraController.follow(m.unit.gameObject, 0.5f);
+    		if(Settings.Instance.cameraFollowType == 0)
+    			CameraController.Instance.follow(m.unit, 0.5f);
     		m.unit.move(m.pos);
     	}
     }
@@ -187,58 +207,13 @@ public class Room : MonoBehaviour {
         else
         	return new Vector2Int(-1, -1);
     }
-    public void addBishop(int team) {
+    public void addUnit(UnitType unit, int team) {
     	Vector2Int pos = randomPos();
     	if(pos.x > -1) {
-    		Bishop bishop = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Bishop"), transform.GetChild(2))).GetComponent<Bishop>();
-			bishop.setSprite(team);
-			bishop.place(this, pos.x, pos.y);
-			Controller.units.Add(bishop);
-		}
-    }
-    public void addKing(int team) {
-    	Vector2Int pos = randomPos();
-    	if(pos.x > -1) {
-    		King king = ((GameObject)Instantiate(Resources.Load("prefabs/Units/King"), transform.GetChild(2))).GetComponent<King>();
+    		King king = ((GameObject)Instantiate(Resources.Load("prefabs/Units/King"), this.UnitsContainer.transform)).GetComponent<King>();
 			king.setSprite(team);
 			king.place(this, pos.x, pos.y);
 			Controller.units.Add(king);
-		}
-    }
-    public void addKnight(int team) {
-    	Vector2Int pos = randomPos();
-    	if(pos.x > -1) {
-    		Knight knight = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Knight"), transform.GetChild(2))).GetComponent<Knight>();
-			knight.setSprite(team);
-			knight.place(this, pos.x, pos.y);
-			Controller.units.Add(knight);
-		}
-    }
-    public void addPawn(int team) {
-    	Vector2Int pos = randomPos();
-    	if(pos.x > -1) {
-    		Pawn pawn = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Pawn"), transform.GetChild(2))).GetComponent<Pawn>();
-			pawn.setSprite(team);
-			pawn.place(this, pos.x, pos.y);
-			Controller.units.Add(pawn);
-		}
-    }
-    public void addQueen(int team) {
-    	Vector2Int pos = randomPos();
-    	if(pos.x > -1) {
-    		Queen queen = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Queen"), transform.GetChild(2))).GetComponent<Queen>();
-			queen.setSprite(team);
-			queen.place(this, pos.x, pos.y);
-			Controller.units.Add(queen);
-		}
-    }
-    public void addRook(int team) {
-    	Vector2Int pos = randomPos();
-    	if(pos.x > -1) {
-    		Rook rook = ((GameObject)Instantiate(Resources.Load("prefabs/Units/Rook"), transform.GetChild(2))).GetComponent<Rook>();
-			rook.setSprite(team);
-			rook.place(this, pos.x, pos.y);
-			Controller.units.Add(rook);
 		}
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fcd553e3474afa14fa889632668148ab
+guid: 21218b6d1a9e4e440ac5d781f4b52247
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -11,8 +11,17 @@ TextureImporter:
   - first:
       213: -2105737517097842792
     second: Markers_2
+  - first:
+      213: -1146533176300394266
+    second: Markers_3
+  - first:
+      213: 686187945114220485
+    second: Markers_4
+  - first:
+      213: -7658710704658412879
+    second: Markers_5
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -32,6 +41,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -66,13 +76,15 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -83,20 +95,8 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,6 +111,69 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 492470048734c1890800000000000000
+      internalID: -7486034296847252844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Markers_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9936888bbb72bce0800000000000000
+      internalID: -1390913289524463203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Markers_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8978b2782eae6c2e0800000000000000
+      internalID: -2105737517097842792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Markers_3
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -121,14 +184,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dec50e9c069fe084e885da8799586e9e
-      internalID: -7486034296847252844
+      spriteID: 6e82a679622b610f0800000000000000
+      internalID: -1146533176300394266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Markers_1
+      name: Markers_4
       rect:
         serializedVersion: 2
         x: 64
@@ -142,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bd733749fec1fe43af4b63bd29110b5
-      internalID: -1390913289524463203
+      spriteID: 5c730bdec44d58900800000000000000
+      internalID: 686187945114220485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Markers_2
+      name: Markers_5
       rect:
         serializedVersion: 2
         x: 128
@@ -163,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3ae5e85feb52614d867420e244b6aee
-      internalID: -2105737517097842792
+      spriteID: 1ba8a53113bc6b590800000000000000
+      internalID: -7658710704658412879
       vertices: []
       indices: 
       edges: []

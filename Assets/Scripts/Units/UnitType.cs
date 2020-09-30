@@ -6,7 +6,8 @@ using UnityEngine;
 public class UnitType : ScriptableObject {
     public new string name;
 
+    public GameObject prefab;
     public Sprite[] sprites;
 
-    public int cost;
+    public int value;
 }

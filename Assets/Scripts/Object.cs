@@ -18,7 +18,7 @@ public abstract class Object : MonoBehaviour {
     public void setPosition(Room room, int xPos, int yPos) {
     	this.room = room;
     	this.pos = new Vector2Int(xPos, yPos);
-		transform.position = new Vector3(xPos, yPos, transform.position.z);
+		transform.position = new Vector2((xPos + yPos) / 2f, (yPos - xPos) / 4f);
     }
 }
 

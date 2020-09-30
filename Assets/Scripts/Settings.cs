@@ -1,8 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Settings : MonoBehaviour {
-    public static float unitSpeed = 5f;
-	public static int cameraFollow = 0; // 0 == All, 1 == Friendly, 2 == None
+[CreateAssetMenu(fileName = "New Settings Profile", menuName = "Settings Profile")]
+public class Settings : ScriptableObject {
+	public static Settings _instance;
+
+	// Units
+    public float unitSpeed;
+	// Camera
+	public int cameraFollowType; // 0 == All, 1 == Friendly, 2 == None
+	// // Zoom
+	public float minZoom;
+	public float maxZoom;
+	public float zoomSpeed;
+	public float zoomFollow;
+	// // Pan
+	public float panSpeed;
+	public float panFollow;
+
+	public static Settings Instance { get {
+		if(_instance == null)
+			_instance = FindObjectOfType<Settings>();
+		if(_instance == null)
+			_instance = (Settings)Resources.Load("Settings/Default");
+		return _instance;
+	} }
 }

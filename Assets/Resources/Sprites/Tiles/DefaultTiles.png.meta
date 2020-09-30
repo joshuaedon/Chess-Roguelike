@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: f20e3ebb841137145bb9f863a5c2dcf6
+guid: a9160159ed718664abe1f30cfbe07556
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7223950226953391895
-    second: Tiles_0
+      213: -5122788859192918664
+    second: DefaultTilesIso_0
   - first:
-      213: -8377130690987618698
-    second: Tiles_1
+      213: 8859248983166953700
+    second: DefaultTilesIso_1
   - first:
       213: 6492058312329877239
     second: DefaultTiles_0
@@ -32,32 +32,8 @@ TextureImporter:
   - first:
       213: -5032784950249556374
     second: DefaultTiles_7
-  - first:
-      213: 5594762267899960143
-    second: DefaultTiles_8
-  - first:
-      213: 5052232000586620315
-    second: DefaultTiles_9
-  - first:
-      213: 133984206849438820
-    second: DefaultTiles_10
-  - first:
-      213: 2751236451995095944
-    second: DefaultTiles_11
-  - first:
-      213: -1589479908094792323
-    second: DefaultTiles_12
-  - first:
-      213: 7114889287328523111
-    second: DefaultTiles_13
-  - first:
-      213: 2986099746648658232
-    second: DefaultTiles_14
-  - first:
-      213: 8289521304050577538
-    second: DefaultTiles_15
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -77,6 +53,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -99,7 +76,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -111,13 +88,15 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,20 +107,8 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -156,9 +123,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
-        width: 32
-        height: 32
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,7 +133,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b08f1e5d8ca584439246398a7d7151b
+      spriteID: 7f65b8f73ac681a50800000000000000
       internalID: 6492058312329877239
       vertices: []
       indices: 
@@ -176,10 +143,10 @@ TextureImporter:
       name: DefaultTiles_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
+        x: 64
+        y: 448
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,7 +154,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb349737380fade4cb0256f898e4aaaf
+      spriteID: 7127ab62573053280800000000000000
       internalID: -9064334873317445097
       vertices: []
       indices: 
@@ -197,10 +164,10 @@ TextureImporter:
       name: DefaultTiles_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
+        x: 0
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,7 +175,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdef3742b9d3dd44aa6fe28ad5a58b23
+      spriteID: 39201ef9c2b00cc80800000000000000
       internalID: -8304625426582404461
       vertices: []
       indices: 
@@ -218,10 +185,10 @@ TextureImporter:
       name: DefaultTiles_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
-        width: 32
-        height: 32
+        x: 64
+        y: 384
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,7 +196,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d39da6c3de115df469d4fd8169ece431
+      spriteID: 2bb1a45a8c5031ca0800000000000000
       internalID: -6047483515303748686
       vertices: []
       indices: 
@@ -239,10 +206,10 @@ TextureImporter:
       name: DefaultTiles_4
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
-        width: 32
-        height: 32
+        x: 0
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,7 +217,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb1e82e51456bf943885856d4bf7db66
+      spriteID: 5a2081681b04bfac0800000000000000
       internalID: -3820388727690624347
       vertices: []
       indices: 
@@ -260,10 +227,10 @@ TextureImporter:
       name: DefaultTiles_5
       rect:
         serializedVersion: 2
-        x: 160
-        y: 32
-        width: 32
-        height: 32
+        x: 64
+        y: 320
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,7 +238,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fedb1451732c924ab3dda847ae6195e
+      spriteID: 03f9c1b01bbe41890800000000000000
       internalID: -7488101134782128336
       vertices: []
       indices: 
@@ -281,10 +248,10 @@ TextureImporter:
       name: DefaultTiles_6
       rect:
         serializedVersion: 2
-        x: 192
-        y: 32
-        width: 32
-        height: 32
+        x: 0
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,7 +259,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aab8bd3e990c75e46b79e2387c8db4ae
+      spriteID: bd9c2eb1d6eb8d810800000000000000
       internalID: 1790390227708332507
       vertices: []
       indices: 
@@ -302,73 +269,10 @@ TextureImporter:
       name: DefaultTiles_7
       rect:
         serializedVersion: 2
-        x: 224
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a9faa3bdecd9e64492a1ea68ed194e2
-      internalID: -5032784950249556374
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fea21ca663fd65c4c8d15a517572e942
-      internalID: 5594762267899960143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9288d5e8bb3c6064d93a77bdeb2b16a9
-      internalID: 5052232000586620315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_10
-      rect:
-        serializedVersion: 2
         x: 64
-        y: 0
-        width: 32
-        height: 32
+        y: 256
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,113 +280,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf120eb43ede9784da9ccc718ac2cbdb
-      internalID: 133984206849438820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_11
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80ee914ca7d8e2e42bfd5d65aeda5d19
-      internalID: 2751236451995095944
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_12
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7885a63879758f46ba72aef281b1fed
-      internalID: -1589479908094792323
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_13
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eca8e925b8659fb49b04e282091dc19b
-      internalID: 7114889287328523111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_14
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 52dc852e783c12a44be7c0154ca82b1a
-      internalID: 2986099746648658232
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DefaultTiles_15
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5d6018a7232d6564bace445eb59270cb
-      internalID: 8289521304050577538
+      spriteID: a667179a0c4f72ab0800000000000000
+      internalID: -5032784950249556374
       vertices: []
       indices: 
       edges: []

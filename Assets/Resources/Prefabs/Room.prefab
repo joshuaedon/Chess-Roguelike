@@ -107,10 +107,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc48e85a7bbb66943adcb6b5715d55d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TilesContainer: {fileID: 8295153856637509609}
+  ObjectsContainer: {fileID: 429024216045587649}
+  UnitsContainer: {fileID: 8466855921035059878}
+  MarkersContainer: {fileID: 4066947191917089111}
+  type: {fileID: 11400000, guid: d880582d702c01741a84eae411a2dee1, type: 2}
   pos: {x: 0, y: 0}
-  distFromStart: 0
-  enemyUnits: []
-  friendlyUnits: []
+  size: {x: 0, y: 0}
+  adjacentRooms: []
 --- !u!1 &8295153856637509609
 GameObject:
   m_ObjectHideFlags: 0

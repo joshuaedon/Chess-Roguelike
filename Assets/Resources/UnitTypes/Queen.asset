@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cb057e9b4b9b8544a2a67000107d069, type: 3}
+  m_Name: Queen
+  m_EditorClassIdentifier: 
+  name: Queen
+  prefab: {fileID: 4509376876016896467, guid: ea5ad4ce77ca33041a6a3c62c295657a, type: 3}
+  sprites:
+  - {fileID: 9132216423428076053, guid: b8a5c65de277cf9408df01975acfcbbb, type: 3}
+  - {fileID: -6145295764767102903, guid: b8a5c65de277cf9408df01975acfcbbb, type: 3}
+  value: 9

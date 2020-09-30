@@ -44,86 +44,10 @@ public class Controller : MonoBehaviour {
   		Room startingRoom = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform)).GetComponent<Room>();
   		rooms.Add(startingRoom);
 		startingRoom.generate(15, 15, 0, 0);
-		Camera.main.transform.position = new Vector3((15-1) / 2f, (15-1) / 2f, -10);
+		CameraController.Instance.transform.position = new Vector3((15-1) / 2f, 0f, -10);
+		CameraController.Instance.pos = new Vector3((15-1) / 2f, 0f, -10);
 		// Populate the room with starting unit
-        startingRoom.addQueen(0);
-    }
-
-    private void generateLevel() {/*
-    	// Destroy room objects
-    	foreach (Transform child in transform) {
-			GameObject.Destroy(child.gameObject);
-		}
-		this.objects = new Object[size, size];
-		selectedUnit = null;
-
-		movedUnit = null;
-		enemyTurn = false;
-		unitMoving = false;
-		killedUnit = null;
-
-		int[,] grid = new int[size, size];
-		List<Room> rooms = new List<Room>();
-
-		// Generate the starting room
-		int width = 10;
-		int height = 10;
-		int xPos = (size - width - 1) / 2;
-		int yPos = 1;
-		// Room tiles are labeled with the index of the room+1 and surrounding tiles are labeled with -1
-		for(int i = xPos - 1; i < xPos + width + 1; i++) {
-			for(int j = yPos - 1; j < yPos + height + 1; j++) {
-				if(i >= xPos && i < xPos + width && j >= yPos && j < yPos + height)
-					grid[i, j] = rooms.Count + 1;
-				else 
-					grid[i, j] = -1;
-			}
-		}
-  		Room startingRoom = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.GetChild(0))).GetComponent<Room>();
-		startingRoom.generate(width, height, xPos, yPos);
-		rooms.Add(startingRoom);
-		Camera.main.transform.position = new Vector3(xPos + (width-1) / 2f, yPos + (width-1) / 2f, -10);
-		// Populate the room with starting units
-        startingRoom.addKing(playerTeam);
-        startingRoom.addBishop(playerTeam);
-		startingRoom.addKnight(playerTeam);
-		startingRoom.addPawn(playerTeam);
-		startingRoom.addQueen(playerTeam);
-		startingRoom.addRook(playerTeam);
-
-		int tries = 0;
-		while(tries < 1000) {
-			width = Random.Range(5, 13);
-			height = Random.Range(5, 13);
-			xPos = Random.Range(1, size - width);
-			yPos = Random.Range(1, size - height);
-
-			bool marked = false;
-			for(int i = xPos - 1; i < Mathf.Min(xPos + width + 1, size); i++) {
-				for(int j = yPos - 1; j < Mathf.Min(yPos + height + 1, size); j++) {
-					if(grid[i, j] != 0) {
-						marked = true;
-						break;
-					}
-				}	
-			}
-			if(!marked) {
-				tries = 0;
-				// Room tiles are labeled with the index of the room+1 and surrounding tiles are labeled with -1
-				for(int i = xPos - 1; i < xPos + width + 1; i++) {
-					for(int j = yPos - 1; j < yPos + height + 1; j++) {
-						if(i >= xPos && i < xPos + width && j >= yPos && j < yPos + height)
-							grid[i, j] = rooms.Count + 1;
-						else 
-							grid[i, j] = -1;
-					}
-				}
-  		  		Room room = ((GameObject)Instantiate(Resources.Load("prefabs/Room"), transform.GetChild(0))).GetComponent<Room>();
-        		room.generate(width, height, xPos, yPos);
-        		rooms.Add(room);
-			} else
-				tries++;
-		}*/
+        startingRoom.addUnit((UnitType)Resources.Load("Units/Queen"), 0);
     }
 
     void Update() {
@@ -138,13 +62,13 @@ public class Controller : MonoBehaviour {
     		} else
 				checkClick();
 
-    	} else if(!CameraController.moving) {
+    	} else if(!CameraController.Instance.isFollowing()) {
     		// An enemy only takes its move once the camera has reached their unit
     		// Move unit to its next tile
-    		movedUnit.transform.position = Vector2.MoveTowards(movedUnit.transform.position, movedUnit.pos, Settings.unitSpeed * Time.deltaTime);
+    		movedUnit.transform.position = Vector2.MoveTowards(movedUnit.transform.position, movedUnit.pos, Settings.Instance.unitSpeed * Time.deltaTime);
     		// 
     		if(killedUnit != null && Vector2.Distance(new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y), movedUnit.pos) < 0.6875f) {
-    			killedUnit.GetComponent<Explodable>().generateFragments((movedUnit.pos - new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y)).normalized * Settings.unitSpeed);
+    			killedUnit.GetComponent<Explodable>().generateFragments((movedUnit.pos - new Vector2(movedUnit.transform.position.x, movedUnit.transform.position.y)).normalized * Settings.Instance.unitSpeed);
     			/*if(killedUnit is King) {
 
 			    		foreach(Unit unit in this.room.friendlyUnits.Count - 1; i >= 0; i--) {

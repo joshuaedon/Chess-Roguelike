@@ -26,8 +26,10 @@ public abstract class Unit : Object, Clickable {
     public void onClick() {
     	Debug.Log("Hi");
 		Controller.selectedUnit = this;
-		if(Settings.cameraFollow <= 1)
-			CameraController.follow(gameObject, 0.25f);
+		if(Settings.Instance.cameraFollowType <= 1)
+			CameraController.Instance.follow(this, 0.25f);
+		// Follow the selected colonist with the camera
+    	// Camera.main.GetComponent<CameraController>().follow(selectedColonist);
 		if(this.team == 0)
 			markNextTiles();
 	}
@@ -46,26 +48,28 @@ public abstract class Unit : Object, Clickable {
 
     	for(int i = 0; i < nextTiles.Count; i++) {
     		Vector2Int tilePos = nextTiles[i];
-			Marker marker = ((GameObject)Instantiate(Resources.Load("prefabs/Marker"), this.room.transform.GetChild(3))).GetComponent<Marker>();
+			Marker marker = ((GameObject)Instantiate(Resources.Load("prefabs/Marker"), this.room.MarkersContainer.transform)).GetComponent<Marker>();
 			if(this.room.inRoom(tilePos)) {
 				if(Controller.objects[tilePos.x, tilePos.y] is Unit)
-					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[2];
+					marker.type = (MarkerType)Resources.Load("MarkerTypes/AttackMarker");
 				else
-					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
+					marker.type = (MarkerType)Resources.Load("MarkerTypes/DefaultMarker");
 			} else {
 				Room room = this.room.returnRoom(tilePos);
 				if(Controller.areEnemies())
-					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[1];
+					marker.type = (MarkerType)Resources.Load("MarkerTypes/NewRoomMarker");
 				else
-					marker.GetComponent<SpriteRenderer>().sprite = marker.sprites[0];
+					marker.type = (MarkerType)Resources.Load("MarkerTypes/DefaultMarker");
 			}
-			marker.setPosition(this.room, tilePos.x, tilePos.y);
+			// Set the default marker sprite
+			marker.OnMouseExit();
+			marker.transform.position = new Vector2((tilePos.x + tilePos.y) / 2f, (tilePos.y - tilePos.x - 1f) / 4f);
 			if(routes.Count > 0)
 				marker.route = routes[i];
     	}
     	// Set camera back to following the selected piece after an enemy piece has moved
-    	if(Settings.cameraFollow <= 1)
-    		CameraController.follow(gameObject, 0.25f);
+    	if(Settings.Instance.cameraFollowType <= 1)
+    		CameraController.Instance.follow(this, 0.25f);
     }
     private List<List<Vector2Int>> getRoutes() {
     	List<List<Vector2Int>> routes = new List<List<Vector2Int>>();
@@ -128,7 +132,7 @@ public abstract class Unit : Object, Clickable {
     		// Debug.Log((this.team == 0 ? "White " : "Black ") + this.GetType() + " - " + this.pos.x + ", " + this.pos.y + " - " + posOut.x + ", " + posOut.y);
     		Vector2Int temp = this.pos;
 			place(room, pos.x, pos.y);
-			transform.position = new Vector3(temp.x, temp.y, transform.position.z);
+			transform.position = new Vector2(temp.x, temp.y);
 			transform.SetParent(room.transform.GetChild(2));
 			Controller.movedUnit = this;
 			if(Controller.areEnemies())
@@ -142,7 +146,7 @@ public abstract class Unit : Object, Clickable {
     	if(checkDeath()) {
     		Controller.killedUnit = this;
 			if(this.team != 0)
-				Controller.score += this.type.cost;
+				Controller.score += this.type.value;
     		for(int i = Controller.units.Count - 1; i >= 0; i--) {
 				if(this == Controller.units[i])
 					Controller.units.RemoveAt(i);

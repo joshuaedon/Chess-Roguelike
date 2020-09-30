@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac6a9f18dc790047801d7c7184d4017, type: 3}
+  m_Name: StoneBrick
+  m_EditorClassIdentifier: 
+  whiteTile: {fileID: -3820388727690624347, guid: a9160159ed718664abe1f30cfbe07556,
+    type: 3}
+  blackTile: {fileID: -7488101134782128336, guid: a9160159ed718664abe1f30cfbe07556,
+    type: 3}

@@ -50,9 +50,9 @@ TagManager:
   - name: Fragments
     uniqueID: 3124961415
     locked: 0
-  - name: Units
-    uniqueID: 2659149293
-    locked: 0
   - name: Markers
     uniqueID: 2687493751
+    locked: 0
+  - name: Units
+    uniqueID: 2659149293
     locked: 0
